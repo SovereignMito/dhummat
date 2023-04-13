@@ -11,7 +11,7 @@ The tool and source code are free and available on this repository, however plea
 
 Quick Start:  
 - The `info` command queries a list of commands. `info <command>` provides more detailed information.
-- Check out the [wiki]().
+- Check out the [wiki](https://github.com/SovereignMito/dhummat/wiki).
 
 # Patch v1.0
 - Launch of dhummat
