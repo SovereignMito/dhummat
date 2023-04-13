@@ -10,11 +10,11 @@ from . import facterialize, gcl
 
 
 packageinfos = {
-    'factor': "Syntax: factor <n> <modifier>\nTakes a natural number <n> and returns its factors, or all natural numbers that divide n.\nmodifier:\n-d: returns the factors in the form of product pairs.\n-p: performs a *prime factorization*, reducing `n` to a product of prime numbers.",
-    'gcd': "Syntax: gcd <int> <int> ... <int>\nFinds the greatest common divisor of at least two integers.",
-    'lcm': "Syntax: lcm <int> <int> ... <int>\nFinds the least common multiple of of at least two integers.",
-    'simp': "Syntax: simp <n> <d>\nSimplifies a fraction of numerator <n> and denominator <d>.\n<n> and <d> must be integer values and <d> cannot be zero.",
-    'sqrt': "Syntax: sqrt <n> <-d>\nFinds the square root of positive integer <n> and returns it in a * sqrt(b) formatting.\n<-d>: display the result as a decimal instead."
+    'factor': "Syntax: factor <n> <modifier>\nTakes a natural number <n> and returns its factors, or all natural numbers that divide n.\nmodifier:\n-d: returns the factors in the form of product pairs.\n-p: performs a *prime factorization*, reducing `n` to a product of prime numbers.\nSigning: Return value not signable.",
+    'gcd': "Syntax: gcd <int> <int> ... <int>\nFinds the greatest common divisor of at least two integers.\nSigning: Integer.",
+    'lcm': "Syntax: lcm <int> <int> ... <int>\nFinds the least common multiple of of at least two integers.\nSigning: Integer.",
+    'simp': "Syntax: simp <n> <d>\nSimplifies a fraction of numerator <n> and denominator <d>.\n<n> and <d> must be integer values and <d> cannot be zero.\nSigning: Return value not signable.",
+    'sqrt': "Syntax: sqrt <n> <-d>\nFinds the square root of positive integer <n> and returns it in a * sqrt(b) formatting.\n<-d>: display the result as a decimal instead.\nSigning: If n is a perfect square, an integer. If -d, an integer or a float."
 }
 
 packageexes = {
