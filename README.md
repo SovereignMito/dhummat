@@ -13,7 +13,7 @@ Quick Start:
 - The `info` command queries a list of commands. `info <command>` provides more detailed information.
 - Check out the [wiki](https://github.com/SovereignMito/dhummat/wiki).
 
-# Version v1.1
+# Version 1.1
 ### Operations
 - fileops: Fixed a bug where leaving whitespace at the end of a line in a script file could cause a command to fail when using `scr`.
 - dhummat: Separated error messages from unrecognized commands and unexpected errors (due to coding mistakes).
