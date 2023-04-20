@@ -9,6 +9,7 @@ You should have received a copy of the GNU General Public License along with dhu
 # FORMAT: from CommandSets.<CommandSet Folder name> import <file containing infos and executables dicts>
 from CommandSets.FactorSet import factorsetinfos
 from CommandSets.CombosSet import combossetinfos
+from CommandSets.ArithSet import arithsetinfos
 
 
 # Operational Command Set Infos
@@ -26,9 +27,9 @@ baseinfos = {
 
 # External Command Set infos, executables, and titles.
 # Add or exclude command set labels here.
-infopackages = [factorsetinfos.packageinfos, combossetinfos.packageinfos]
-exepackages = [factorsetinfos.packageexes, combossetinfos.packageexes]
-titlepackages = [factorsetinfos.packagetitles, combossetinfos.packagetitles]
+infopackages = [factorsetinfos.packageinfos, combossetinfos.packageinfos, arithsetinfos.packageinfos]
+exepackages = [factorsetinfos.packageexes, combossetinfos.packageexes, arithsetinfos.packageexes]
+titlepackages = [factorsetinfos.packagetitles, combossetinfos.packagetitles, arithsetinfos.packagetitles]
 
 
 # Import all infos, executables, and titles from Command Set

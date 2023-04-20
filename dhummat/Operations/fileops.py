@@ -12,7 +12,7 @@ def CleanInput(un):
     unn = un.split(" ")
     tkns = []
     for tkn in unn:
-        if tkn != '':
+        if tkn != '' and tkn != '\n':
             tkns.append(tkn.split('\n')[0])
     return tkns
 

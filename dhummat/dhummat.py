@@ -205,10 +205,12 @@ while True:
     # Sign Operation
     elif (userin[0] == "sign" or userin[0] == "unsign"):
         ExSign(userin, False)
-    # Regular executable command to be run.
+    # Regular executable command.
     else:
         try:
             Execute(userin, useri + '\n')
-        except Exception as err:
+        except KeyError as err:
             print("Command \'" + userin[0] + "\' not recognized.")
+        except Exception as err:
+            print("An unexpected error has occurred.")
 # END EXECUTION

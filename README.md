@@ -1,4 +1,4 @@
-# dhummat Command Set Math Tool v1.0
+# dhummat Command Set Math Tool v1.1
 by Mito-EK
 
 dhummat (doom-ought) is a terminal-style tool that can provide mathematical functions through "Command Sets." Command Sets are specialized packages that grant access to certain mathematical tools within dhummat. Though, there is design potential for non-mathematical Command Sets.
@@ -13,11 +13,11 @@ Quick Start:
 - The `info` command queries a list of commands. `info <command>` provides more detailed information.
 - Check out the [wiki](https://github.com/SovereignMito/dhummat/wiki).
 
-# Patch v1.0
-- Launch of dhummat
-- Added the Factor Set
-- Added the Combos Set
-- Added File Operations
-- Added Sign Operations
+# Version v1.1
+### Operations
+- fileops: Fixed a bug where leaving whitespace at the end of a line in a script file could cause a command to fail when using `scr`.
+- dhummat: Separated error messages from unrecognized commands and unexpected errors (due to coding mistakes).
+### Command Sets
+- Added Arithmetic Set: add, sub, mult, div, mod, pow, round, floor, ceil
 
-Feedback? Found a bug? Report it in the discussions tab.
+Report bugs and send feedback in the discussions tab.
