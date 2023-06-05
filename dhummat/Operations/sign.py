@@ -1,5 +1,5 @@
 """
-Copyright 2023 MITO-EK
+Copyright 2023 SovereignMito
 This file is part of dhummat.
 dhummat is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 dhummat is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
@@ -11,10 +11,10 @@ You should have received a copy of the GNU General Public License along with dhu
 signs = {}
 
 
-# Check that A is a letter from a-z or A-Z.
+# Check that A is a letter from a-z or A-Z, or is $.
 def ValidSign(A, p):
     try:
-        if (ord(A) >= 65 and ord(A) <= 90) or (ord(A) >= 97 and ord(A) <= 122):
+        if (ord(A) >= 65 and ord(A) <= 90) or (ord(A) >= 97 and ord(A) <= 122) or ord(A) == 36:
             return True
         elif p:
             print("Error: {} must be between a-z or A-Z.".format(A))
@@ -47,12 +47,15 @@ def Sign(A, n):
     return True
 
 
-# Copies the value signed to A to B.
+# Copies the value signed to B to A.
 def SignCopy(A, B):
+    if A == '$':
+        print("Error: Cannot write to special variable.")
+        return False
     try:
-        signs[B] = signs[A]
+        signs[A] = signs[B]
     except Exception as err:
-        print("Error: Could not copy, check that {} is signed.".format(A))
+        print("Error: Could not copy, check that {} is signed.".format(B))
         return False
     return True
 
@@ -102,8 +105,11 @@ def RunSign(args):
             bn = args[2]
             if ValidSign(bn, False):
                 if SignCopy(A, bn):
-                    return "{} = {}".format(bn, str(GetSign(A)))
+                    return "{} = {}".format(A, str(GetSign(bn)))
             else:
+                if A == '$':
+                    print("Error: Cannot write to special variable.")
+                    return ""
                 if Sign(A, bn):
                     return "{} = {}".format(A, bn)
         if args[0] == "unsign":

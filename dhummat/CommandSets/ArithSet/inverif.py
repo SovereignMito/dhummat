@@ -1,5 +1,5 @@
 """
-Copyright 2023 MITO-EK
+Copyright 2023 SovereignMito
 This file is part of dhummat.
 dhummat is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 dhummat is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
@@ -80,7 +80,7 @@ def RoundArgs(args):
         if r < 0:
             print("Error: Rounding value is negative.")
             return False
-    except:
+    except Exception as err:
         print("Error: {} is not an integer.".format(args[2]))
         return False
     return True

@@ -1,10 +1,11 @@
 """
-Copyright 2023 MITO-EK
+Copyright 2023 SovereignMito
 dhummat is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 dhummat is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 You should have received a copy of the GNU General Public License along with dhummat. If not, see <https://www.gnu.org/licenses/>.
 """
 
+import sys, fileinput
 from CommandSets import csman
 from Operations import fileops, sign
 
@@ -22,7 +23,7 @@ infos, executables, titles = csman.ImportAll()
 
 
 # BEGIN HELPERS
-# Run an executable command and record the response.
+# Run an executable command and record the response and signable output.
 def Execute(cmd, pr):
     cmdx = sign.ReplaceSigns(cmd)
     if cmdx == "":
@@ -32,7 +33,23 @@ def Execute(cmd, pr):
         fileops.WriteOut(res, pr)
         if not fileops.hiding:
             print(res)
+    if signout != "":
+        sign.Sign('$', str(signout))
     return res, signout
+
+
+# Takes an input string and splits it by chains ('>>').
+def SplitInput(uin):
+    out = []
+    allin = uin.split(">>")
+    for u in allin:
+        formattedu = fileops.CleanInput(u)
+        if formattedu == []:
+            if len(allin) != 1:
+                print("Error: Command is missing.")
+            return []
+        out.append(formattedu)
+    return out
 
 
 # Prints the command overview from using 'info' on its own.
@@ -65,8 +82,11 @@ def ExSign(args, show):
         # Verify <a> is a-z, A-Z and <command> is valid executable.
         if not sign.ValidSign(args[1], True):
             return False
+        if args[1] == '$':
+            print("Error: Cannot write to special variable.")
+            return False
         if not (args[2] in executables):
-            print("Command '{}' not recognized. Check that it is executable."
+            print("Error: Command '{}' not recognized. Is it executable?"
                   .format(args[2]))
             return False
         if not fileops.hiding and show:
@@ -177,40 +197,68 @@ def GetInfo(un):
             print("Command \'" + un[1] + "\' not recognized.")
 
 
-print("dhummat Command Set Math Tool.\nVersion 1.0\nUse info for help.")
+# Decides whether to quit the main input loop.
+quit = False
+# Build an input string from command line argument.
+precharge_data = ""
+if len(sys.argv) == 2:
+    precharge_data += sys.argv[1]
+elif len(sys.argv) > 2:
+    print("Error: Too many arguments. Check that the command is in quotes.")
+    quit = True
+
+if not quit:
+    # Build an input string from stdin only if no terminal argument specified.
+    if not sys.stdin.isatty() and precharge_data == "":
+        precharge_data = '>>'.join(list(fileinput.input()))
+
+    # Only print splash prompt when no arguments are used for execution.
+    if precharge_data == "":
+        print("dhummat Command Set Math Tool.\nVersion 1.2\nUse info for help.")
 
 # Main input loop.
-while True:
-    # Collect user input.
-    useri = input("dhummat> ")
-    userin = fileops.CleanInput(useri)
-    if len(userin) == 0:
-        continue
-    # Exit command.
-    elif (userin[0] == 'exit'):
-        break
-    # Info command.
-    elif (userin[0] == 'info'):
-        GetInfo(userin)
-    # File Operation.
-    elif (userin[0] in fileopscmd):
-        if (userin[0] == 'hide'):
-            fileops.SwitchHide(userin)
-        elif (userin[0] == 'outs'):
-            fileops.OutS(userin)
-        elif (len(userin) >= 2):
-            fileopscmd[userin[0]][0](userin[1], userin[2:])
-        else:
-            print(fileopscmd[userin[0]][1])
-    # Sign Operation
-    elif (userin[0] == "sign" or userin[0] == "unsign"):
-        ExSign(userin, False)
-    # Regular executable command.
+while not quit:
+    # If input is prefilled, run that.
+    if precharge_data != "":
+        quit = True
+        userl = SplitInput(precharge_data)
+    # Otherwise, collect user input and separate it into individual commands.
     else:
         try:
-            Execute(userin, useri + '\n')
-        except KeyError as err:
-            print("Command \'" + userin[0] + "\' not recognized.")
-        except Exception as err:
-            print("An unexpected error has occurred.")
+            userl = SplitInput(input("dhummat> "))
+        except EOFError as err:
+            quit = True
+            userl[:] = []
+    # Scan individual commands in between chains.
+    for userin in userl:
+        if len(userin) == 0:
+            continue
+        # Exit command.
+        elif (userin[0] == 'exit'):
+            quit = True
+            break
+        # Info command.
+        elif (userin[0] == 'info'):
+            GetInfo(userin)
+        # File Operation.
+        elif (userin[0] in fileopscmd):
+            if (userin[0] == 'hide'):
+                fileops.SwitchHide(userin)
+            elif (userin[0] == 'outs'):
+                fileops.OutS(userin)
+            elif (len(userin) >= 2):
+                fileopscmd[userin[0]][0](userin[1], userin[2:])
+            else:
+                print(fileopscmd[userin[0]][1])
+        # Sign Operation
+        elif (userin[0] == "sign" or userin[0] == "unsign"):
+            ExSign(userin, False)
+        # Regular executable command.
+        else:
+            try:
+                Execute(userin, " ".join(userin) + '\n')
+            except KeyError as err:
+                print("Command \'" + userin[0] + "\' not recognized.")
+            except Exception as err:
+                print("An unexpected error has occurred.")
 # END EXECUTION

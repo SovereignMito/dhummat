@@ -1,5 +1,5 @@
-# dhummat Command Set Math Tool v1.1
-by Mito-EK
+# dhummat Command Set Math Tool v1.2
+by SovereignMito
 
 dhummat (doom-ought) is a terminal-style tool that can provide mathematical functions through "Command Sets." Command Sets are specialized packages that grant access to certain mathematical tools within dhummat. Though, there is design potential for non-mathematical Command Sets.
 
@@ -13,11 +13,15 @@ Quick Start:
 - The `info` command queries a list of commands. `info <command>` provides more detailed information.
 - Check out the [wiki](https://github.com/SovereignMito/dhummat/wiki).
 
-# Version 1.1
-### Operations
-- fileops: Fixed a bug where leaving whitespace at the end of a line in a script file could cause a command to fail when using `scr`.
-- dhummat: Separated error messages from unrecognized commands and unexpected errors (due to coding mistakes).
+# Version 1.2
+### Functionality
+- Added special sign `$`. Automatically stores the value of the last successful signable command.
+- Added command chaining. By separating commands with `>>`, execute multiple commands in one line.
+    - See the new [wiki](https://github.com/SovereignMito/dhummat/wiki/Command-Chaining) page for full details.
+- Added support for inputting a command (encapsulated in quotes for commands more than 1 word/command chains) as a command line argument, allowing for instant evaluation without entering the dhummat terminal.
+- Fixed dhummat lacking functionality for input in the OS terminal (pipes, '< filename'). Commands such as `echo add 1 2 | python3 dhummat.py` and `python3 dhummat.py < a.txt` (where `a.txt` contains a command(s) like `add 1 2`) should work now. This should behave similarly to using a command line argument, i.e. dhummat returns the output without starting an interactive terminal.
+    - See the new [wiki](https://github.com/SovereignMito/dhummat/wiki/Input-Instructions) page for more information on how dhummat handles input overall.
 ### Command Sets
-- Added Arithmetic Set: add, sub, mult, div, mod, pow, round, floor, ceil
+- Sign: The functionality of sign copy - `sign a b` - has been reversed such that the value of `b` is copied to `a`. This is to be consistent with `sign a n`, where the 2nd value is signed to the 1st.
 
 Report bugs and send feedback in the discussions tab.
