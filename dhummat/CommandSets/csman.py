@@ -21,7 +21,7 @@ baseinfos = {
     'outs': "Syntax: outs <-h>\nStops writing output to the file specified by outx and closes that file for writing.\n-h: quick trigger for the hide command.",
     'scr': "Syntax: scr <f> <modifiers>\nRuns all commands in script file <f>. A script file contains, line by line, commands as if they were written into the console manually.\n<modifiers>:\n-c: prints a command to the screen when it is being run.\n-i: ignore errors if they occur and continue.",
     'hide': "Syntax: hide\nToggles hiding. While hiding is active, hides successful output of commands from the screen. Errors are still displayed.\nThe -h modifier of outx and outs can be used to invoke this command without typing it out on its own.",
-    'sign': "Syntax: sign\nReturns a list of all currently signed variables and their values.\n\nSyntax: sign <a> <command>\nTakes the result of executable <command> and signs it to variable <a>.\n\nSyntax: sign <a>\nReturns the current value signed to <a>, if applicable.\n\nSyntax: sign <a> <n>\nSigns numerical value <n> to <a>.\n\nSyntax: sign <a> <b>\nCopies the value signed to <a> onto <b>.",
+    'sign': "Syntax: sign\nReturns a list of all currently signed variables and their values.\n\nSyntax: sign <a> <command>\nTakes the result of executable <command> and signs it to variable <a>.\n\nSyntax: sign <a>\nReturns the current value signed to <a>, if applicable.\n\nSyntax: sign <a> <n>\nSigns numerical value <n> to <a>.\n\nSyntax: sign <a> <b>\nCopies the value signed to <b> onto <a>.",
     'unsign': "Syntax: unsign <a>\nDeletes variable <a> and the value signed to it, if applicable."
 }
 
